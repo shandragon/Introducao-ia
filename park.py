@@ -20,7 +20,7 @@ class Park(GraphicEnvironment):
   def add_food(self, location):
     self.add_thing(Food(), location)
     # Adicionando os cheiros da comida
-    for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+    for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
       self.add_thing(Smell(), [location[0] + x, location[1] + y])
 
   def add_water(self, location):
@@ -68,9 +68,10 @@ class Park(GraphicEnvironment):
           self.delete_thing(items[0])
           # Removendo os cheiros da comida
           location_food = agent.location
-          for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+          for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
             smell = self.list_things_at([location_food[0] + x, location_food[1] + y], tclass=Smell)
-            self.delete_thing(smell[0])
+            if len(smell) != 0:
+              self.delete_thing(smell[0])
     elif action == "drink":
       items = self.list_things_at(agent.location, tclass=Water)
       if len(items) != 0:
